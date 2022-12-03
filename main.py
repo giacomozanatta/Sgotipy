@@ -17,6 +17,7 @@ SGOTIFY_BASE_URL = os.getenv('SGOTIFY_BASE_URL')
 
 scope = "user-read-recently-played,app-remote-control,streaming,user-read-playback-state"
 
+
 last_three = []
 
 while True:
