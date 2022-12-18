@@ -9,13 +9,11 @@ import os
 import grpc
 import sgotify_pb2
 import sgotify_pb2_grpc
-from concurrent import futures
 import uvloop
 
 from grpc_asyncio import AsyncioExecutor
 
 import json
-import asyncio
 import threading
 
 process_event = threading.Event()
