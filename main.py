@@ -45,7 +45,7 @@ if __name__ == "__main__":
     executor = AsyncioExecutor(loop=loop)
     server = grpc.server(executor)
     sgotify_pb2_grpc.add_SgotifyServicer_to_server(SgotifyServicer(), server)
-    server.add_insecure_port("localhost:4040")
+    server.add_insecure_port(":4040")
     server.start()
     last_three = []
     process_event.wait()
