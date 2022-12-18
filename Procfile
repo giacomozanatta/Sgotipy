@@ -1,1 +1,1 @@
-worker: python3 main.go
+web: python3 main.go
