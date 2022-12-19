@@ -4,7 +4,17 @@ from typing import ClassVar as _ClassVar, Optional as _Optional
 
 DESCRIPTOR: _descriptor.FileDescriptor
 
-class SpotifyAuth(_message.Message):
+class SgotipyStatusRequest(_message.Message):
+    __slots__ = []
+    def __init__(self) -> None: ...
+
+class SgotipyStatusResponse(_message.Message):
+    __slots__ = ["status"]
+    STATUS_FIELD_NUMBER: _ClassVar[int]
+    status: str
+    def __init__(self, status: _Optional[str] = ...) -> None: ...
+
+class StartSgotipyRequest(_message.Message):
     __slots__ = ["access_token", "expires_in", "refresh_token", "scope", "token_type"]
     ACCESS_TOKEN_FIELD_NUMBER: _ClassVar[int]
     EXPIRES_IN_FIELD_NUMBER: _ClassVar[int]
@@ -18,7 +28,17 @@ class SpotifyAuth(_message.Message):
     token_type: str
     def __init__(self, access_token: _Optional[str] = ..., token_type: _Optional[str] = ..., scope: _Optional[str] = ..., expires_in: _Optional[int] = ..., refresh_token: _Optional[str] = ...) -> None: ...
 
-class SpotifyAuthReply(_message.Message):
+class StartSgotipyResponse(_message.Message):
+    __slots__ = ["message"]
+    MESSAGE_FIELD_NUMBER: _ClassVar[int]
+    message: str
+    def __init__(self, message: _Optional[str] = ...) -> None: ...
+
+class StopSgotipyRequest(_message.Message):
+    __slots__ = []
+    def __init__(self) -> None: ...
+
+class StopSgotipyResponse(_message.Message):
     __slots__ = ["message"]
     MESSAGE_FIELD_NUMBER: _ClassVar[int]
     message: str

@@ -7,8 +7,8 @@ import time
 from dotenv import load_dotenv
 import os
 import grpc
-import sgotify_pb2
-import sgotify_pb2_grpc
+import sgotipy_pb2
+import sgotipy_pb2_grpc
 import uvloop
 
 from grpc_asyncio import AsyncioExecutor
@@ -18,8 +18,12 @@ import threading
 
 process_event = threading.Event()
 
-class SgotifyServicer(sgotify_pb2_grpc.SgotifyServicer):
-    async def SendSpotifyAuth(self, request, context):
+class SgotifyServicer(sgotipy_pb2_grpc.SgotipyServicer):
+
+    def __init__(self):
+        self.running = False
+    
+    async def StartSgotipy(self, request, context):
         auth = {
             'access_token': request.access_token,
             'token_type': request.token_type,
@@ -30,9 +34,32 @@ class SgotifyServicer(sgotify_pb2_grpc.SgotifyServicer):
         with open(".cache", "w+", encoding = 'utf-8') as f:
             f.write(json.dumps(auth))
         process_event.set()
+        self.running = True
+        print("[INFO] SgotifyServicer -- Running: " + str(self.running))
         result = {'message': "OK"}
 
-        return sgotify_pb2.SpotifyAuthReply(**result)
+        return sgotipy_pb2.StartSgotipyResponse(**result)
+
+    async def StopSgotipy(self, request, context):
+        process_event.clear()
+        try:
+            os.remove('.cache')
+        except:
+            print('[ERR] SgotifyServicer -- Missing .cache file (wtf ?!?)')
+        
+        self.running = False
+        print("[INFO] SgotifyServicer -- Running: " +  str(self.running))
+        result = {'message': "OK"}
+        self.running = False
+        return sgotipy_pb2.StopSgotipyResponse(**result)
+    
+    async def SgotipyStatus(self, request, context):
+        if self.running == True:
+            status = "RUNNING"
+        else:
+            status = "NOT_RUNNING"
+        result = {'status': status}
+        return sgotipy_pb2.SgotipyStatusResponse(**result)
 
 load_dotenv()
 
@@ -44,13 +71,13 @@ if __name__ == "__main__":
     loop = uvloop.new_event_loop()
     executor = AsyncioExecutor(loop=loop)
     server = grpc.server(executor)
-    sgotify_pb2_grpc.add_SgotifyServicer_to_server(SgotifyServicer(), server)
+    sgotipy_pb2_grpc.add_SgotipyServicer_to_server(SgotifyServicer(), server)
     server.add_insecure_port("[::]:4040")
     server.start()
     last_three = []
-    process_event.wait()
 
     while True:
+        process_event.wait()
         try:
             sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
             sgotify_url = SGOTIFY_BASE_URL + "/admin/queue/new"
