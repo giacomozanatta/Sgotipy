@@ -106,4 +106,4 @@ if __name__ == "__main__":
                     last_three.remove(song["item"]["id"])
         except:
             print("ERROR.")
-        time.sleep(10)
+        time.sleep(20)
