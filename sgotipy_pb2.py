@@ -13,14 +13,14 @@ _sym_db = _symbol_database.Default()
 
 
 
-DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rsgotipy.proto\"y\n\x13StartSgotipyRequest\x12\x14\n\x0c\x61\x63\x63\x65ss_token\x18\x01 \x01(\t\x12\x12\n\ntoken_type\x18\x02 \x01(\t\x12\r\n\x05scope\x18\x03 \x01(\t\x12\x12\n\nexpires_in\x18\x04 \x01(\x05\x12\x15\n\rrefresh_token\x18\x05 \x01(\t\"\'\n\x14StartSgotipyResponse\x12\x0f\n\x07message\x18\x01 \x01(\t\"\x14\n\x12StopSgotipyRequest\"&\n\x13StopSgotipyResponse\x12\x0f\n\x07message\x18\x01 \x01(\t\"\x16\n\x14SgotipyStatusRequest\"\'\n\x15SgotipyStatusResponse\x12\x0e\n\x06status\x18\x01 \x01(\t2\xc6\x01\n\x07Sgotipy\x12=\n\x0cStartSgotipy\x12\x14.StartSgotipyRequest\x1a\x15.StartSgotipyResponse\"\x00\x12:\n\x0bStopSgotipy\x12\x13.StopSgotipyRequest\x1a\x14.StopSgotipyResponse\"\x00\x12@\n\rSgotipyStatus\x12\x15.SgotipyStatusRequest\x1a\x16.SgotipyStatusResponse\"\x00\x42\x10Z\x0e./grpc/sgotipyb\x06proto3')
+DESCRIPTOR = _descriptor_pool.Default().AddSerializedFile(b'\n\rsgotipy.proto\"y\n\x13StartSgotipyRequest\x12\x14\n\x0c\x61\x63\x63\x65ss_token\x18\x01 \x01(\t\x12\x12\n\ntoken_type\x18\x02 \x01(\t\x12\r\n\x05scope\x18\x03 \x01(\t\x12\x12\n\nexpires_in\x18\x04 \x01(\x05\x12\x15\n\rrefresh_token\x18\x05 \x01(\t\"\'\n\x14StartSgotipyResponse\x12\x0f\n\x07message\x18\x01 \x01(\t\"\x14\n\x12StopSgotipyRequest\"&\n\x13StopSgotipyResponse\x12\x0f\n\x07message\x18\x01 \x01(\t\"\x16\n\x14SgotipyStatusRequest\"k\n\x15SgotipyStatusResponse\x12\x0e\n\x06status\x18\x01 \x01(\t\x12\x0e\n\x06\x64\x65vice\x18\x02 \x01(\t\x12\x15\n\rdevice_status\x18\x03 \x01(\t\x12\x1b\n\x0c\x63urrent_song\x18\x04 \x01(\x0b\x32\x05.Song\"2\n\x04Song\x12\n\n\x02id\x18\x01 \x01(\t\x12\r\n\x05title\x18\x02 \x01(\t\x12\x0f\n\x07\x61rtists\x18\x03 \x01(\t2\xc6\x01\n\x07Sgotipy\x12=\n\x0cStartSgotipy\x12\x14.StartSgotipyRequest\x1a\x15.StartSgotipyResponse\"\x00\x12:\n\x0bStopSgotipy\x12\x13.StopSgotipyRequest\x1a\x14.StopSgotipyResponse\"\x00\x12@\n\rSgotipyStatus\x12\x15.SgotipyStatusRequest\x1a\x16.SgotipyStatusResponse\"\x00\x42\x0bZ\t./sgotipyb\x06proto3')
 
 _builder.BuildMessageAndEnumDescriptors(DESCRIPTOR, globals())
 _builder.BuildTopDescriptorsAndMessages(DESCRIPTOR, 'sgotipy_pb2', globals())
 if _descriptor._USE_C_DESCRIPTORS == False:
 
   DESCRIPTOR._options = None
-  DESCRIPTOR._serialized_options = b'Z\016./grpc/sgotipy'
+  DESCRIPTOR._serialized_options = b'Z\t./sgotipy'
   _STARTSGOTIPYREQUEST._serialized_start=17
   _STARTSGOTIPYREQUEST._serialized_end=138
   _STARTSGOTIPYRESPONSE._serialized_start=140
@@ -32,7 +32,9 @@ if _descriptor._USE_C_DESCRIPTORS == False:
   _SGOTIPYSTATUSREQUEST._serialized_start=243
   _SGOTIPYSTATUSREQUEST._serialized_end=265
   _SGOTIPYSTATUSRESPONSE._serialized_start=267
-  _SGOTIPYSTATUSRESPONSE._serialized_end=306
-  _SGOTIPY._serialized_start=309
-  _SGOTIPY._serialized_end=507
+  _SGOTIPYSTATUSRESPONSE._serialized_end=374
+  _SONG._serialized_start=376
+  _SONG._serialized_end=426
+  _SGOTIPY._serialized_start=429
+  _SGOTIPY._serialized_end=627
 # @@protoc_insertion_point(module_scope)

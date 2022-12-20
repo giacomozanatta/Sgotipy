@@ -18,6 +18,12 @@ import threading
 
 process_event = threading.Event()
 
+def parse_artists(artists):
+    if len(artists) == 0:
+        return ''
+    if len(artists) > 1:
+        return artists[0]['name'] + ',' + artists[1]['name']
+    return artists[0]['name']
 class SgotifyServicer(sgotipy_pb2_grpc.SgotipyServicer):
 
     def __init__(self):
@@ -54,11 +60,30 @@ class SgotifyServicer(sgotipy_pb2_grpc.SgotipyServicer):
         return sgotipy_pb2.StopSgotipyResponse(**result)
     
     async def SgotipyStatus(self, request, context):
+        device = ''
+        device_status = ''
+        current_song = {}
+        status = "NOT_RUNNING"
         if self.running == True:
             status = "RUNNING"
-        else:
-            status = "NOT_RUNNING"
-        result = {'status': status}
+            sp = spotipy.Spotify(auth_manager=SpotifyOAuth(scope=scope))
+            playback = sp.current_playback()
+            device = ''
+            device_status = ''
+            current_song = {}
+            if playback:
+                if playback['device']:
+                    device = playback["device"]["name"]
+                if playback["is_playing"]:
+                    device_status = "PLAYING"
+                else:
+                    device_status = "NOT_PLAYING"
+                if playback and playback["item"]:
+                    current_song = {'id': playback["item"]["id"], 'title': playback["item"]["name"], 'artists': parse_artists(playback["item"]["artists"])}
+            print(current_song)
+            print(device)
+            print(device_status)
+        result = {'status': status, 'device': device, 'device_status': device_status, 'current_song': current_song}
         return sgotipy_pb2.SgotipyStatusResponse(**result)
 
 load_dotenv()
@@ -75,7 +100,6 @@ if __name__ == "__main__":
     server.add_insecure_port("[::]:4040")
     server.start()
     last_three = []
-
     while True:
         process_event.wait()
         try:
